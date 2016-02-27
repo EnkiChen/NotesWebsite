@@ -1,6 +1,6 @@
-title: iOS开发者证书以及代码签名学习笔记
-date: 2016-01-15 17:47:06
-categories: 学习笔记
+title: iOS开发者证书以及代码签名学习笔记  
+date: 2016-01-15 17:47:06  
+categories: 知识整理/总结  
 tags: [开发证书, 代码签名, mobileprovision, Provisioning Profiles, 开发者账号]
 ---
 
