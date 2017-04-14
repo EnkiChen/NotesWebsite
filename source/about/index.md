@@ -1,4 +1,4 @@
-title: about
+title:
 date: 2015-12-18 12:50:16
 comments: false
 ---

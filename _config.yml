@@ -30,6 +30,7 @@ skip_render:
 
 # Writing
 new_post_name: :title.md # File name of new posts
+auto_spacing: true
 default_layout: post
 titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
