@@ -36,16 +36,31 @@ Protobuf 编译器在于将 *.proto* 文件转成对应语言的对象模型的�
 
 下载链接为：[https://github.com/google/protobuf/releases](https://github.com/google/protobuf/releases)
 
-如果是源码的话执行以下命令进行编译：
+如果是源码的话需要确保一下工具已经安装：
 
 ```
-cd Source code 目录
-./configure
-make
-make check
-sudo make install
+autoconf automake libtool curl make g++ unzip
+```
+
+执行以下几个步骤进行编译和安装：
 
 ```
+# 生成 configure 文件
+$ ./autogen.sh
+
+# 配置 makefile
+$ ./configure
+
+# 编译
+$ make
+$ make check
+
+# 安装编译后的二进制文件
+$ sudo make install
+
+```
+
+> 如果出现 `/usr/local/Cellar/../Library/ENV/4.3/sed: No such file or directory` 错误可以尝试使用 `brew reinstall libtool` 重新安装 libtool
 
 如果编译成功，就可以使用 `proto` 命令了，如果是直接下载的 `proto` 文件，就不需要编译可直接运行。我们可以创建一个 *.proto* 文件来测试一下环境是否搭建好，样例文件如下：
 
