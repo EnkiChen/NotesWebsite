@@ -5,7 +5,7 @@ categories: 知识整理/总结
 tags: [Dnsmasq]
 ---
 
-上一个星期在查找一个设备无法解析公司内部域名的问题，最终查出来问题是在网关设备上运行的 `Dnsmasq` 服务没有正确的配置上游 DNS 服务器，导致内网域名无法被正常的解析。在这期间对 `DNS协议` 又重新学习了一番，并且对 `Dnsmasq` 服务有了一些了解，结合网上一些资料，对 `Dnsmasq` 提供的 DNS 和 DHCP 服务的配置做一些总结和备忘。
+> 上一个星期在查找一个设备无法解析公司内部域名的问题，最终查出来问题是在网关设备上运行的 `Dnsmasq` 服务没有正确的配置上游 DNS 服务器，导致内网域名无法被正常的解析。在这期间对 `DNS协议` 又重新学习了一番，并且对 `Dnsmasq` 服务有了一些了解，结合网上一些资料，对 `Dnsmasq` 提供的 DNS 和 DHCP 服务的配置做一些总结和备忘。
 
 `Dnsmasq`  是一个开源的项目，可以在 [thekelleys](http://www.thekelleys.org.uk/dnsmasq/doc.html) 上找到最新版本和源码，它能提供 DNS 、DHCP、TFTP、PXE 等功能。`Dnsmasq` 的 DNS 服务工作原理是，当接收到一个 DNS 请求是， `Dnsmasq` 首先会查找 `/etc/hosts` 文件，如果没有查找到，会查询本地 DNS 缓存记录，如果还是未找到对应的记录，则会将请求装发到 `/etc/resolv.conf` 文件中定义的上游 DNS 服务器中，从而实现对域名的解析。
 
@@ -22,7 +22,7 @@ tags: [Dnsmasq]
 interface=eth1
 interface=wlan0
 
-# 指定服务不在一下网卡上运行
+# 指定服务不在以下网卡上运行
 except-interface=eth0
 
 # 指定监听的 IP 地址，多个 IP 地址可用 `,` 分割(默认是监听所有网卡)
@@ -41,8 +41,8 @@ log-async=20
 ###  DNS 服务配置参数
 
 ```
-# 指定 DNS 服务的端口，设置为 0 表示关闭 DNS 服务，只使用 DHCP 服务
-port=63
+# 指定 DNS 服务的端口（默认53），设置为 0 表示关闭 DNS 服务，只使用 DHCP 服务
+port=53
 
 # 指定一个 hosts 文件，默认是从 /etc/hosts 中获取
 addn-hosts=/etc/banner_add_hosts
