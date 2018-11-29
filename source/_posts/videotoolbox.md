@@ -278,7 +278,7 @@ void CFRelease(CFTypeRef cf);
 * CMSampleBuffer：存放编解码前后的视频图像的容器数据结构。
 * CMTime：时间戳相关。时间以 64-bit/32-bit 的形式出现。
 
-![Alt text](./CMSampleBuffer.png)
+![Alt text](/uploads/CMSampleBuffer.png)
 
 #### CVPixelBuffer
 

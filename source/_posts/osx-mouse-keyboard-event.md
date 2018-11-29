@@ -17,11 +17,11 @@ tags: [OSX]
 
 在 OSX 系统中鼠标和键盘的活动事件都会产生底层的系统事件，首先传递到 IOKit 框架处理后存储到队列中，通知 Window Server 服务层处理。Window Server 存储到 FIFO 优先队列中，然后逐一转发到当前活动窗口或者能响应这个事件的应用程序去处理。
 
+<!--more-->
+
 在 OSX 或者 iOS 程序中，都会有一个 Main Run Loop 的线程，RunLoop 循环中会遍历 event 消息队列，逐一分发这些事件到应用中合适的对象去处理。具体来说就是调用 `NSApp` 的 *`sendEvent:`* 方法发送消息到`NSWindow`，`NSWindow` 再分发到 `NSView` 视图对象，由其鼠标或键盘事件响应方法去处理。
 
 ![Alt text](/uploads/EventDispatch.png)
-
-<!--more-->
 
 ###  事件响应链
 
