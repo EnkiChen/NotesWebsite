@@ -5,7 +5,7 @@ categories: [音视频/WebRTC]
 tags: [WebRTC]
 ---
 
-之前在 [WebRTC iOS&OSX 库的编译](http://www.enkichen.com/2017/05/12/webrtc-ios-build/) 介绍了如何下载和编译 WebRTC 的源码，但是很多可能只需要查看最新 WebRTC 的源码，并不需要下载庞大的第三方库以及编译依赖。
+之前在 [WebRTC iOS&OSX 库的编译](http://www.enkichen.com/2017/05/12/webrtc-ios-build/) 介绍了如何下载和编译 WebRTC 的源码，但是很多时候可能只需要查看最新 WebRTC 的源码，并不需要下载庞大的第三方库以及编译依赖。
 
 WebRTC 的仓库是使用 Git 来管理的，地址为 [https://chromium.googlesource.com/external/webrtc/](https://chromium.googlesource.com/external/webrtc/) 所以我们只需要 clone 到本地就好了（前提得备好梯子），如下命令：
 <!--more-->

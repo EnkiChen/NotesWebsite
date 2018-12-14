@@ -15,7 +15,7 @@ tags: [h264]
 
 ![Alt text](/uploads/SVC_Temporal_Scalability.png)
 
-编码器进行了分层编码，例如上图描述编码端同时将所有的码流层发送至服务器，如果用户网络质量非常好，服务器将所有层的码流数据转发至该用户例如 Receiver2；如果用户网络非常差，则只需要将低层级码流数据转发给该用户例如 Receiver1。
+在 H264/SVC 编码器中进行了分层编码，例如上图描述编码端同时将所有的码流层发送至服务器，如果用户网络质量非常好，服务器将所有层的码流数据转发至该用户例如 Receiver2；如果用户网络非常差，则只需要将低层级码流数据转发给该用户例如 Receiver1。实际项目中可根据接收端带宽情况，转发对应码率的流即可。
 
 ### 编码器的支持
 
@@ -25,7 +25,7 @@ Temporal Scalability 机制并不是所有的编码都支持的，Apple 平台�
 
 > x264 编码器当前还不支持 Temporal Scalability 特性。
 
-在 openh264 中使用 `SEncParamExt` 结构体来对编码进行参数的配置，Temporal Scalability 的特性使用 `iTemporalLayerNum` 字段来配置，用来指定输出多少层最大只支持 4 层。
+在 openh264 中使用 `SEncParamExt` 结构体来对编码进行参数的配置，Temporal Scalability 的特性使用 `iTemporalLayerNum` 字段来配置，用来指定输出多少层，这里最大只支持 4 层。
 
 使用 *`EncodeFrame`* 方法进行 H264 的编码后可以得到 `SFrameBSInfo` 的输出结果，该结构体以及关联的结构体的定义如下：
 
