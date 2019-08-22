@@ -17,6 +17,8 @@ $sudo apachectl restart
 $sudo apachectl stop
 ```
 
+<!--more-->
+
 Apache 服务一些信息：
 
 * Web 跟目录在： `/Library/WebServer/Documents`

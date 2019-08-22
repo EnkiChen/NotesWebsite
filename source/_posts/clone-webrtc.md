@@ -42,3 +42,71 @@ fetch = +refs/branch-heads/*:refs/remotes/origin/*
 ```
 
 之后就可以用 `git branch -av` 来查看远程分支了，当然也可以 `checkout` 到其他分支。
+
+### 使用脚本自动同步至 GitHub
+
+WebRTC 的更新还是非常频繁的，可以使用 python 脚本将自动同步至 GitHub 上，首先在自己的 GitHub 空间中创建用于存储 webrtc 的仓库，然后在 webrtc 源码目录下执行以下命令，用于关联 GitHub 仓库：
+
+```shell
+$ git remote add github git@github.com:xxxx/webrtc.git 
+```
+
+这样 webrtc 就存在两个远程仓库，使用以下脚本来同步两个仓库，脚本如下：
+
+```python
+#!/usr/bin/env python3
+
+import os
+import subprocess
+import re
+
+remote_repo = 'github'
+webrtc_path = "xxxx"
+
+def execute_shell(cmd):
+    print('$ ' + cmd)
+    (status, output) = subprocess.getstatusoutput(cmd)
+    if (len(output) > 0):
+        print(output)
+    return (status, output)
+
+
+def sync_tag(name, commit):
+    execute_shell('git tag -a m%s %s -m m%s' % (name, commit, name))
+    execute_shell('git push %s --tags' % (remote_repo))
+
+
+def sync_branch(name, commit):
+    execute_shell('git checkout -b ' + name + ' ' + commit)
+    execute_shell('git checkout ' + name)
+    execute_shell('git pull origin ' + name)
+    execute_shell('git push ' + remote_repo + ' ' + name)
+
+
+def sync_repo(path):
+    os.chdir(path)
+    execute_shell('git checkout master')
+    execute_shell('git fetch')
+    execute_shell('git pull origin')
+    (status, output) = subprocess.getstatusoutput('git br -av')
+    if status != 0:
+        print('webrtc path error with code:', status)
+        return None
+
+    pattern = re.compile(r'remotes/origin/(\S+)\s+([a-zA-Z0-9]{10})\s+', re.M)
+    results = pattern.findall(output)
+    for (branch, commit) in results:
+        sync_branch(branch, commit)
+
+    execute_shell('git checkout master')
+
+
+def main():
+    sync_repo(webrtc_path)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+脚本中的 `remote_repo` 就是指 GitHub 的远程仓库的名字，`webrtc_path` 就是 webrtc 源码目录，完成配置后，执行脚本就可以同步两个仓库了，这可能需要点时间。我已经在我的 [GitHub](https://github.com/EnkiChen/webrtc) 空间中进行了同步，有需要的自取。
